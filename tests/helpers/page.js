@@ -6,7 +6,8 @@ class CustomPage {
   // This build() function combines puppeteer Page class with CustomPage class here.
   static async build() {
     const browser = await puppeteer.launch({
-      headless: false
+      headless: true,
+      args: ['--no-sandbox']
     });
 
     const page = await browser.newPage();
@@ -22,15 +23,12 @@ class CustomPage {
     this.page = page;
   }
   async login() {
-    // ******* Make a new user and save it to mongoDB ******* //
     const user = await userFactory();
-    // ******* Make Fake Session to mock Auth Process ******* //
     const { session, sig } = sessionFactory(user);
-    // Set the session and session signature as cookies.
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
     // Page reload
-    await this.page.goto('localhost:3000/blogs');
+    await this.page.goto('http://localhost:3000/blogs');
     // Make Jest wait till 'a[href="/auth/logout"]' appears. --> Meaning Login was successful!
     await this.page.waitFor('a[href="/auth/logout"]');
   }
