@@ -1,7 +1,6 @@
 module.exports = {
-  googleClientID:
-    '1031975789503-lkhc1t5otgq15janfofulkcg4rlb74li.apps.googleusercontent.com',
-  googleClientSecret: 'RnXuF8JkCqMRWcWfYv1ebfUm',
-  mongoURI: 'mongodb://127.0.0.1:27017/blog_ci',
-  cookieKey: '123123123'
+  googleClientID: process.env.GOOGLE_CLIENT_ID,
+  googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  mongoURI: process.env.MONGO_URI,
+  cookieKey: process.env.COOKIE_KEY
 };
