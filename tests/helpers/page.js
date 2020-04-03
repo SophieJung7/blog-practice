@@ -11,7 +11,6 @@ class CustomPage {
     });
 
     const page = await browser.newPage();
-    await page.setDefaultNavigationTimeout(0);
     const customPage = new CustomPage(page);
 
     return new Proxy(customPage, {
@@ -24,16 +23,22 @@ class CustomPage {
     this.page = page;
   }
   async login() {
+    this.page.setDefaultTimeout(10000);
+
+    // Capture console output
+    this.page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    await this.page.evaluate(() => console.log(`url is ${location.href}`));
+
     const user = await userFactory();
     const { session, sig } = sessionFactory(user);
     await this.page.setCookie({ name: 'session', value: session });
     await this.page.setCookie({ name: 'session.sig', value: sig });
     // Page reload
-    await this.page.goto('http://localhost:3000/blogs', {
-      waitUntil: 'load',
-      timeout: 180000
-    });
+    await this.page.goto('http://localhost:3000/blogs');
     // Make Jest wait till 'a[href="/auth/logout"]' appears. --> Meaning Login was successful!
+
+    await this.page.screenshot({ path: 'before-wait-logout.png' });
+
     await this.page.waitFor('a[href="/auth/logout"]');
   }
 
