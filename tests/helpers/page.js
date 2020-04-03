@@ -11,6 +11,7 @@ class CustomPage {
     });
 
     const page = await browser.newPage();
+    await page.setDefaultNavigationTimeout(0);
     const customPage = new CustomPage(page);
 
     return new Proxy(customPage, {
