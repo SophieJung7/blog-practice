@@ -31,7 +31,9 @@ class CustomPage {
     // Page reload
     await this.page.goto('http://localhost:3000/blogs');
     // Make Jest wait till 'a[href="/auth/logout"]' appears. --> Meaning Login was successful!
-    await this.page.waitFor('a[href="/auth/logout"]');
+    await this.page.waitFor('a[href="/auth/logout"]', {
+      timeout: 180000
+    });
   }
 
   async getContentsOf(selector) {
