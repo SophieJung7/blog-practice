@@ -1,31 +1,29 @@
 language: node_js
 node_js:
-  - '13'
+- '13'
 dist: trusty
 addons:
   chrome: stable
-  apt:
-    packages:
-      # - libnss3
+deploy:
+  provider: heroku
+  api_key:
+    secure: PzQXI6AmSLT1CY40Xr+aBwwCzJgM6zLSlzEkMArMOizFb3iafCySFxf4RzJ1fjk15lkpTu6bc2puT6TSpIpe+iPLXZ4sy/hcDgezOinPrGMRl26GAd4nrWQ8fheFu5u9+CgL+W6AdJwj4qGJAmGNbUgh0ZbH+WamoWGASiSRFjnrdV6NkOKm4+iINkI+ci2xmF0mN5GI9wWGQnuA9BlmxfKelCmF0DpgL7FKwJOSE8y1nnrdpL8gvcKeg0ysNCrd2LAD73pLI0Hv8tPc/7HgFbXU9dOPvF8e5s1XR4SQMGDEYMXc1rGswycmdND8jRN5yTD4NGbfyXqJZkG9AZzVdLa2th1RdFjgDH5OD2WzURRxS2diZDQ9ORN3eY5qX2oWuugb+5hLnWBn97OZH7/Y4ybgUOaEEWNLhN4Wu8GINt/ukrgEK5HxGoSf1ddGN8/HmZ+6JvH+rPv8IQPR0BvLo1el1UXg7iI0RRgLa9BNvrUH9j5AvCzSBmk//v/mKdj7PlfEIBz4WLFFMyI4DC/34DKOH4kRv0t40Hm4CM/5R0/Hem2oLTbBBFKXHN3Yzqz3AVzQnzM1WCLV7GpOUAqGuBuhQDeKp3gyhOxEzi8h28fvtc3ZBLxJqJQnyBZJjhLYoxrND13x8DWB1fsNb5HXt1CnkO/PKGFT8XwYFOjotsM=
 notifications:
   email: false
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 & # http://localhost
-  # - 'sysctl kernel.unprivileged_userns_clone=1'
-  # - 'export DISPLAY=:99.0'
-  # - 'sh -e /etc/init.d/xvfb start'
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
 services:
-  - mongodb
+- mongodb
 env:
-  - NODE_ENV=ci PORT=3000
+- NODE_ENV=ci PORT=3000
 cache:
   directories:
-    - node_modules
-    - client/node_modules
+  - node_modules
+  - client/node_modules
 install:
-  - npm install
-  - npm run build
+- npm install
+- npm run build
 script:
-  - nohup npm run start &
-  - sleep 3
-  - npm run test
+- nohup npm run start &
+- sleep 3
+- npm run test
