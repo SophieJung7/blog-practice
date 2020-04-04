@@ -1,30 +1,30 @@
 language: node_js
 node_js:
-  - '13'
+- '13'
 dist: trusty
 addons:
   chrome: stable
 deploy:
   provider: heroku
   api_key:
-    secure: PzQXI6AmSLT1CY40Xr+aBwwCzJgM6zLSlzEkMArMOizFb3iafCySFxf4RzJ1fjk15lkpTu6bc2puT6TSpIpe+iPLXZ4sy/hcDgezOinPrGMRl26GAd4nrWQ8fheFu5u9+CgL+W6AdJwj4qGJAmGNbUgh0ZbH+WamoWGASiSRFjnrdV6NkOKm4+iINkI+ci2xmF0mN5GI9wWGQnuA9BlmxfKelCmF0DpgL7FKwJOSE8y1nnrdpL8gvcKeg0ysNCrd2LAD73pLI0Hv8tPc/7HgFbXU9dOPvF8e5s1XR4SQMGDEYMXc1rGswycmdND8jRN5yTD4NGbfyXqJZkG9AZzVdLa2th1RdFjgDH5OD2WzURRxS2diZDQ9ORN3eY5qX2oWuugb+5hLnWBn97OZH7/Y4ybgUOaEEWNLhN4Wu8GINt/ukrgEK5HxGoSf1ddGN8/HmZ+6JvH+rPv8IQPR0BvLo1el1UXg7iI0RRgLa9BNvrUH9j5AvCzSBmk//v/mKdj7PlfEIBz4WLFFMyI4DC/34DKOH4kRv0t40Hm4CM/5R0/Hem2oLTbBBFKXHN3Yzqz3AVzQnzM1WCLV7GpOUAqGuBuhQDeKp3gyhOxEzi8h28fvtc3ZBLxJqJQnyBZJjhLYoxrND13x8DWB1fsNb5HXt1CnkO/PKGFT8XwYFOjotsM=
+    secure: VRPqQfT8KFnw1Y3DHHPdDYcZsII2bbVWCatbRMpT8HyBYJmGJWfhzkwUkejPplYIa6gdKbwtM24Rh9UilG9cgi6IFoez46kggV2g8DYuzk26wdkigY1ILGqBlPpGvBMwnifowZk8tv3Nni3Zm8cY0kAQNdQkjRGyp0VVtNoCQRDDanGnFU7Q5q0B4vOVd54lbuCvstll4GbmP8ax6FYK2i86YYSxlB6QuBSquftZM1ZR1AmTtgtwHYUsk9SqApP923Ue+3yTIf5JiKP11WQBr+mBSh+jKzFCQb7tLcJriU1e4cuTTLRcLw5jA++YbPE/BvlAcQGhUWYwhraz9i1WcpWdKHifNdp1iBi3YcpTz4mKjUDC/X9sRB5ufrxAl7NrHrVF8yNmAUmIEmmqZY2Buvrlw7eu3WqFRqIE0843U57Op1pkuqtT9W/zr7wMQFeA3RFlvR1eja30r0u+MuQ6TyyFqIL479rprQ9NiabGpaWn3GQm5HhPCiMxnXmW3YaEw8pyKippQERBJsin9K6HMRLKHU2tfhjHOLZTgSvkiybzlmXtRkNVYwucAe9o6Uu/M7m4K06qugORFWwusaFChuCrHTbimAi7l5yodE0j2TjkcvoOAVl4tnjQRPZ95/i5QXyBKS8PCywnCVzNo9WVNYS3006xsODuTphRu7m927g=
   app: blog-practice-sophie
 notifications:
   email: false
 before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
+- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 &
 services:
-  - mongodb
+- mongodb
 env:
-  - NODE_ENV=ci PORT=3000
+- NODE_ENV=ci PORT=3000
 cache:
   directories:
-    - node_modules
-    - client/node_modules
+  - node_modules
+  - client/node_modules
 install:
-  - npm install
-  - npm run build
+- npm install
+- npm run build
 script:
-  - nohup npm run start &
-  - sleep 3
-  - npm run test
+- nohup npm run start &
+- sleep 3
+- npm run test
